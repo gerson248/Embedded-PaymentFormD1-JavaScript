@@ -1,3 +1,5 @@
+/* Crear keys.js y reemplazar los siguientes valores*/
+
 const keys = {
     "endpoint": "XXXXXXXXXXXXXXXXXXXXX",
     "username" : "XXXXXXXXXXX",
