@@ -10,5 +10,6 @@ router.post("/checkout", checkoutController.checkout)
 //API
 const API = '/api'
 router.post(`${API}/checkout` , checkoutController.apiCheckout)
+router.post(`${API}/validate` , checkoutController.apiValidate)
 
 module.exports = router;
