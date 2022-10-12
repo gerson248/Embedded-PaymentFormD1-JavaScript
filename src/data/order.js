@@ -1,7 +1,9 @@
+const orderRandomOrderId = Math.floor( Math.random()*100000000)
+
 const  order = {
-    "amount":   100,
+    "amount":   1000,
     "currency": "PEN",
-    "orderId":  "my-order-id-kr101016",
+    "orderId":  orderRandomOrderId,
     "customer": {
         "email": "izipay@example.com"
     },

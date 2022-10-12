@@ -21,6 +21,7 @@ controller.home = (req, res) => {
   res.render("home")
 }
 
+// CREACIÓN DEL FORMTOKEN
 controller.checkout = (req, res,next) => {
   request.post({
     url: `${endpoint}/api-payment/V4/Charge/CreatePayment`,
@@ -48,18 +49,17 @@ controller.checkout = (req, res,next) => {
 };
 
 controller.paid =  (req,res)=> {
-  console.log(req.body);
-  const answer = req.body.clientAnswer
-  const hash = req.body.hash
-  const reAnswerHash = Hex.stringify(
-    hmacSHA256(JSON.stringify(hash), keys.HMACSHA256)
-  )
+
+  const answer = JSON.parse(req.body["kr-answer"])
+  const hash = req.body["kr-hash"]
+
   const answerHash = Hex.stringify(
     hmacSHA256(JSON.stringify(answer), keys.HMACSHA256)
   )
-  
-  if (reAnswerHash === answerHash)
-   res.status(200).render('paid', {'response' : 'Pago exitoso'} )
+    orderDetails = answer.orderDetails
+
+  if (hash === answerHash)
+   res.status(200).render('paid', {'response' : answer.orderStatus , 'details':orderDetails} )
   else res.status(500).render('paid', {'response' : 'Error catastrófico'})
 }
 
@@ -90,17 +90,16 @@ controller.apiCheckout = (req,res,next) => {
 
 controller.apiValidate = (req,res,next) => {
 
-  const answer = req.body.clientAnswer
-  const hash = req.body.hash
-  const reAnswerHash = Hex.stringify(
-    hmacSHA256(JSON.stringify(hash), keys.HMACSHA256)
-  )
+  const answer = JSON.parse(req.body["kr-answer"])
+  const hash = req.body["kr-hash"]
+
   const answerHash = Hex.stringify(
     hmacSHA256(JSON.stringify(answer), keys.HMACSHA256)
   )
+    orderDetails = answer.orderDetails
   
-  if (reAnswerHash === answerHash)
-   res.status(200).send( {'response' : 'Pago exitoso'} )
+  if (hash === answerHash)
+   res.status(200).send(  {'response' : answer.orderStatus , 'details':orderDetails}  )
   else res.status(500).send( {'response' : 'Error catastrófico'})
 }
 
