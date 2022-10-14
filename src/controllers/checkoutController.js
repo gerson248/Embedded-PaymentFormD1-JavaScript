@@ -34,7 +34,6 @@ controller.checkout = (req, res,next) => {
   function(error, response, body) {
     if (body.status === 'SUCCESS')
     {
-      // Send back the form token to the client side
       const formtoken = body.answer.formToken;
       res.render("checkout",
       {formtoken ,publickey , endpoint}
@@ -48,6 +47,7 @@ controller.checkout = (req, res,next) => {
   })
 };
 
+//MANEJO DE LA URL DE RETORNO
 controller.paid =  (req,res)=> {
 
   const answer = JSON.parse(req.body["kr-answer"])
@@ -62,6 +62,25 @@ controller.paid =  (req,res)=> {
    res.status(200).render('paid', {'response' : answer.orderStatus , 'details':orderDetails} )
   else res.status(500).render('paid', {'response' : 'Error catastrófico'})
 }
+
+//IPN ========================================================================//
+controller.ipn =  (req,res)=> {
+
+  const answer = JSON.parse(req.body["kr-answer"])
+  const hash = req.body["kr-hash"]
+
+  const answerHash = Hex.stringify(
+    hmacSHA256(JSON.stringify(answer), keys.password)
+  )
+  console.log(answerHash);
+  console.log(hash);
+
+  if (hash === answerHash)
+  res.status(200).send({'response' : answer.orderStatus })
+  else res.status(500).send( {'response' : 'Error catastrófico, puede estar teniendo un intento de fraude'})
+
+}
+
 
 //API ========================================================================//
 
