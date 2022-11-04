@@ -6,6 +6,7 @@ const checkoutController = require("../controllers/checkoutController");
 router.get("/",checkoutController.home)
 router.post("/paid", checkoutController.paid);
 router.post("/checkout", checkoutController.checkout)
+router.post("/ipn", checkoutController.ipn)
 
 //API
 const API = '/api'
