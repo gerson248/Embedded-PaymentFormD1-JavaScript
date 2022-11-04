@@ -26,9 +26,15 @@
             box-shadow: inset 10px 10px 20px #e8e8e8,
                 inset -10px -10px 20px #ffffff;
         }
+
         .kr-embedded {
             width: 100%;
         }
+
+        .kr-payment-button {
+            background-color: #EB6864 !important;
+            color: white !important;
+        }   
     </style>
 </head>
 
@@ -50,8 +56,17 @@
                     </a>
                 </div>
                 <div class="col-md-4  ">
-                    <h1 class="h4 mt-3 mb-4 text-white ">Checkout</h1>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h1 class="h4 mt-3 mb-4 text-white ">Checkout</h1>
+                        </div>
+                        <div class="col-md-7">
+
+                        </div>
+                    </div>
                     <!-- payment form -->
+                    <img width="150" src="https://zonatechperu.com/wp-content/uploads/2020/05/tcredito-1.png" alt="">
+
                     <div class="kr-embedded bg-form" kr-form-token="<%= formtoken %>">
 
                         <!-- payment form fields -->
