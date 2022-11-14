@@ -109,17 +109,17 @@ controller.apiCheckout = (req,res,next) => {
 
 controller.apiValidate = (req,res,next) => {
 
-  const answer = JSON.parse(req.body["kr-answer"])
-  const hash = req.body["kr-hash"]
+  const answer = JSON.parse(req.body["rawClientAnswer"])
+  const hash = req.body["hash"]
 
   const answerHash = Hex.stringify(
     hmacSHA256(JSON.stringify(answer), keys.HMACSHA256)
   )
-    orderDetails = answer.orderDetails
-  
+  orderDetails = answer.orderDetails
+
   if (hash === answerHash)
-   res.status(200).send(  {'response' : answer.orderStatus , 'details':orderDetails}  )
-  else res.status(500).send( {'response' : 'Error catastrófico'})
+    res.status(200).send({ 'response': answer.orderStatus, 'details': orderDetails })
+  else res.status(500).send({ 'response': 'Error catastrófico' })
 }
 
 
